@@ -1,17 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <title>IncluiPOA</title>
+
+    <!-- Leaflet (mapa interativo) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        #map {
+            height: 450px;
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="title">
-    <h1>IncluiPOA</h1>
-   <h2>O projeto IncluiPOA tem o objetivo de construir um local de debate para os habitantes de Porto Alegre em prol de criar uma cidade mais acessível para nossa população</h2>
+        <h1>IncluiPOA</h1>
+        <h2>O projeto IncluiPOA tem o objetivo de construir um local de debate para os habitantes de Porto Alegre em prol de criar uma cidade mais acessível para nossa população</h2>
     </div>
 
-    <div class="mapa"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2632.7877621698044!2d-51.213849341206625!3d-30.02670372289407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951979a561211c5f%3A0x24d90bfa5587713c!2sShopping%20Total!5e0!3m2!1spt-BR!2sbr!4v1761049442646!5m2!1spt-BR!2sbr" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="mapa">
+        <div id="map"></div>
+    </div>
+
+    <script>
+        // Inicializa o mapa em Porto Alegre
+        const map = L.map('map').setView([-30.0346, -51.2177], 13);
+
+        // Adiciona o mapa base do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Quando o usuário clica no mapa, cria um marcador
+        map.on('click', function (e) {
+            const { lat, lng } = e.latlng;
+
+            const marker = L.marker([lat, lng]).addTo(map);
+
+            marker.bindPopup(`
+                <b>Local:</b> ${lat.toFixed(4)}, ${lng.toFixed(4)}<br>
+                <label>Descrição do problema:</label><br>
+                <textarea id="desc-${lat}-${lng}" rows="3" cols="25" placeholder="Ex: calçada sem rampa"></textarea><br>
+                <button onclick="salvar(${lat}, ${lng})">Salvar</button>
+            `).openPopup();
+        });
+
+        // Função para salvar ponto
+        function salvar(lat, lng) {
+            const descId = `desc-${lat}-${lng}`;
+            const descricao = document.getElementById(descId).value;
+
+            if (!descricao.trim()) {
+                alert("Por favor, escreva uma descrição antes de salvar.");
+                return;
+            }
+
+            const ponto = { lat, lng, descricao };
+
+            // Recupera lista existente
+            const lista = JSON.parse(localStorage.getItem("pontos")) || [];
+            lista.push(ponto);
+            localStorage.setItem("pontos", JSON.stringify(lista));
+
+            // Fecha pop-up e atualiza marcador com botão de remover
+            map.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    const { lat: mLat, lng: mLng } = layer.getLatLng();
+                    if (mLat === lat && mLng === lng) {
+                        layer.bindPopup(`
+                            <b>Problema:</b> ${descricao}<br>
+                            <button onclick="remover(${lat}, ${lng})">Remover ponto</button>
+                        `);
+                    }
+                }
+            });
+
+            alert("Ponto salvo!");
+        }
+
+        // Função para remover um ponto específico
+        function remover(lat, lng) {
+            let lista = JSON.parse(localStorage.getItem("pontos")) || [];
+
+            // Filtra os que não correspondem ao ponto atual
+            lista = lista.filter(p => !(p.lat === lat && p.lng === lng));
+            localStorage.setItem("pontos", JSON.stringify(lista));
+
+            // Remove marcador do mapa
+            map.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    const { lat: mLat, lng: mLng } = layer.getLatLng();
+                    if (mLat === lat && mLng === lng) {
+                        map.removeLayer(layer);
+                    }
+                }
+            });
+
+            alert("Ponto removido!");
+        }
+
+        // Recarrega os pontos salvos quando a página abre
+        window.onload = () => {
+            const lista = JSON.parse(localStorage.getItem("pontos")) || [];
+
+            lista.forEach(p => {
+                const marker = L.marker([p.lat, p.lng]).addTo(map);
+                marker.bindPopup(`
+                    <b>Problema:</b> ${p.descricao}<br>
+                    <button onclick="remover(${p.lat}, ${p.lng})">Remover ponto</button>
+                `);
+            });
+        };
+    </script>
 </body>
 </html>
