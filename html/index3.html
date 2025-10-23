@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denúncia - IncluiPOA</title>
+    <link rel="stylesheet" href="../css/style3.css">
+    <link rel="shortcut icon" type="imagex/png" href="../img/logo-incluiPoa.png">
+    
+</head>
+
+<body class="denuncia-body">
+    <div class="denuncia-container">
+        <h1>Denunciar ponto</h1>
+
+        <p><b>Problema informado:</b> <span id="descricao"></span></p>
+        <p><b>Localização:</b> <span id="coordenadas"></span></p>
+
+        <form id="denunciaForm">
+            <label for="motivo">Motivo da denúncia:</label><br>
+            <textarea id="motivo" name="motivo" rows="5" required placeholder="Descreva o motivo da denúncia..."></textarea><br>
+
+            <button type="submit">Enviar denúncia</button>
+            <button type="button" onclick="window.location.href='index.html'">Voltar ao mapa</button>
+        </form>
+    </div>
+
+    <script>
+        
+        const params = new URLSearchParams(window.location.search);
+        const descricao = decodeURIComponent(params.get("descricao"));
+        const lat = params.get("lat");
+        const lng = params.get("lng");
+
+        
+        document.getElementById("descricao").textContent = descricao || "Não informado";
+        document.getElementById("coordenadas").textContent = `${parseFloat(lat).toFixed(4)}, ${parseFloat(lng).toFixed(4)}`;
+
+        
+        document.getElementById("denunciaForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const motivo = document.getElementById("motivo").value;
+            alert(`Denúncia enviada!\n\nMotivo: ${motivo}`);
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
