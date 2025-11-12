@@ -70,9 +70,9 @@ map.on('click', function (e) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `descricao=${encodeURIComponent(descricao)}&lat=${lat}&lng=${lng}`
     })
+    .then(response => response.json()) // <-- precisa disso
     .then(data => {
         if (data.status === 'sucesso') {
-            // O backend deve retornar o ID inserido
             const id = data.id;  
     
             const marker = L.marker([lat, lng]).addTo(map);
@@ -92,10 +92,11 @@ map.on('click', function (e) {
             console.error(data.mensagem);
         }
     })
-        .catch(error => {
-            alert('Erro ao conectar com o servidor.');
-            console.error(error);
-        });
+    .catch(error => {
+        alert('Erro ao conectar com o servidor.');
+        console.error(error);
+    });
+    
 });
 
 
@@ -117,7 +118,7 @@ window.removeMarker = function (id) {
     const confirmDelete = confirm("Tem certeza que deseja excluir o ponto?");
     if (!confirmDelete) return;
 
-    // Remove do banco
+    
     fetch('../php/remover_ponto.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -126,7 +127,7 @@ window.removeMarker = function (id) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'sucesso') {
-            // Remove do mapa também
+           
             const markerData = markers.find(m => m.id === id);
             if (markerData) {
                 map.removeLayer(markerData.marker);
