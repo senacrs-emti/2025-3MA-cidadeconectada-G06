@@ -12,22 +12,27 @@
     <div id="history-container">
         <h1>Seu histórico de marcações</h1>
         
-        <button id="backButton" onclick="window.location.href='../html/index1.html'">Voltar ao menu</button>
+        <button id="backButton" onclick="window.location.href='../html/index1.html'">
+            Voltar ao menu
+        </button>
 
-        <table id="tabelaPontos">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descrição</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaHistorico">
-                <tr><td colspan="5">Carregando...</td></tr>
-            </tbody>
-        </table>
+        <!-- Tabela de histórico -->
+        <div id="table-wrapper">
+            <table id="tabelaPontos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaHistorico">
+                    <tr><td colspan="5">Carregando...</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="../js/historico.js"></script>

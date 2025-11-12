@@ -1,40 +1,91 @@
+/* Fundo geral */
 #history-body {
-    background-color: rgb(52, 52, 52);
+    background-color: #2b2b2b;
     color: white;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    padding: 20px;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 40px;
 }
 
+/* Container principal */
 #history-container {
-    max-width: 600px;
-    background-color: #2c2c2c;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    background-color: #1f1f1f;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 900px;
 }
 
+/* Título */
 #history-container h1 {
-    margin-bottom: 20px;
-    color: #4caf50;
+    color: #3cb043;
+    font-size: 2rem;
+    margin-bottom: 25px;
 }
 
+/* Botão de voltar */
 #backButton {
-    padding: 10px 20px;
-    font-size: 16px;
+    background-color: #6b6b6b;
+    color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
-    background-color: #6c757d;
-    color: white;
-    transition: background-color 0.3s;
+    font-size: 1rem;
+    transition: 0.3s;
 }
 
 #backButton:hover {
-    background-color: #5a6268;
+    background-color: #3cb043;
 }
 
+/* Wrapper da tabela (para centralizar melhor) */
+#table-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Tabela */
+table {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+table th {
+    background-color: #3cb043;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+table td {
+    background-color: #2e2e2e;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Linhas zebradas */
+table tr:nth-child(even) td {
+    background-color: #333;
+}
+
+/* Botões dentro da tabela */
+table button {
+    background-color: #3cb043;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+table button:hover {
+    background-color: #2a7a31;
+}
