@@ -1,15 +1,15 @@
-// Inicializa o mapa centralizado em Porto Alegre
+
 const map = L.map('map').setView([-30.0346, -51.2177], 13);
 
-// Adiciona o mapa base (OpenStreetMap)
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Controle do modo de marcação
+
 let addingMarkers = false;
 
-// Botão de ativar/desativar modo de marcação
+
 const toggleAddButton = document.getElementById('toggleAddButton');
 
 if (toggleAddButton) {
@@ -25,10 +25,10 @@ if (toggleAddButton) {
     });
 }
 
-// Lista de marcadores
+
 let markers = [];
 
-// 🔹 Função 1: Carregar pontos do banco
+
 fetch('../php/listar_pontos.php')
     .then(response => {
         if (!response.ok) throw new Error('Erro HTTP: ' + response.status);
@@ -62,16 +62,16 @@ fetch('../php/listar_pontos.php')
     });
 
 
-// 🔹 Função 2: Adicionar marcador ao clicar no mapa
+
 map.on('click', function (e) {
-    if (!addingMarkers) return; // só adiciona se o modo estiver ativo
+    if (!addingMarkers) return; 
 
     const { lat, lng } = e.latlng;
     const descricao = prompt("Descreva o problema de acessibilidade neste local:");
 
     if (!descricao) return;
 
-    // Envia os dados para o PHP (salvar no banco)
+    
     fetch('../php/salvar_ponto.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -105,7 +105,7 @@ map.on('click', function (e) {
         });
 });
 
-// 🔹 Função 3: Remover marcador com confirmação
+
 window.removeMarker = function (index) {
     const confirmDelete = confirm("Tem certeza que deseja excluir o ponto?");
     if (confirmDelete && markers[index]) {
@@ -114,7 +114,7 @@ window.removeMarker = function (index) {
     }
 };
 
-// 🔹 Função 4: Ir para página de denúncia
+
 window.reportIssue = function (descricao, lat, lng) {
     const url = `index3.html?descricao=${descricao}&lat=${lat}&lng=${lng}`;
     window.location.href = url;
