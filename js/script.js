@@ -145,3 +145,6 @@ window.removeMarker = function (id) {
     });
 };
 
+
+
+
