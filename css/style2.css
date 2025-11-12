@@ -1,4 +1,3 @@
-/* Fundo geral */
 #history-body {
     background-color: #2b2b2b;
     color: white;
@@ -10,7 +9,6 @@
     padding-top: 40px;
 }
 
-/* Container principal */
 #history-container {
     text-align: center;
     background-color: #1f1f1f;
@@ -21,14 +19,12 @@
     max-width: 900px;
 }
 
-/* Título */
 #history-container h1 {
     color: #3cb043;
     font-size: 2rem;
     margin-bottom: 25px;
 }
 
-/* Botão de voltar */
 #backButton {
     background-color: #6b6b6b;
     color: white;
@@ -44,14 +40,12 @@
     background-color: #3cb043;
 }
 
-/* Wrapper da tabela (para centralizar melhor) */
 #table-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
 
-/* Tabela */
 table {
     border-collapse: collapse;
     width: 90%;
@@ -70,12 +64,11 @@ table td {
     text-align: center;
 }
 
-/* Linhas zebradas */
 table tr:nth-child(even) td {
     background-color: #333;
 }
 
-/* Botões dentro da tabela */
+
 table button {
     background-color: #3cb043;
     color: white;
