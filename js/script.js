@@ -1,15 +1,15 @@
-// Inicializa o mapa centralizado em Porto Alegre
+
 const map = L.map('map').setView([-30.0346, -51.2177], 13);
 
-// Adiciona o mapa base (OpenStreetMap)
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Controle do modo de marcação
+
 let addingMarkers = false;
 
-// Botão de ativar/desativar modo de marcação
+
 const toggleAddButton = document.getElementById('toggleAddButton');
 
 if (toggleAddButton) {
@@ -25,87 +25,81 @@ if (toggleAddButton) {
     });
 }
 
-// Lista de marcadores
+
 let markers = [];
 
-// 🔹 Função 1: Carregar pontos do banco
+
 fetch('../php/listar_pontos.php')
-    .then(response => {
-        if (!response.ok) throw new Error('Erro HTTP: ' + response.status);
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        console.log('Pontos carregados:', data);
-        data.forEach((ponto, index) => {
+        data.forEach(ponto => {
             const lat = parseFloat(ponto.latitude);
             const lng = parseFloat(ponto.longitude);
             const descricao = decodeURIComponent(ponto.descricao);
-
-            if (isNaN(lat) || isNaN(lng)) return;
+            const id = ponto.id;
 
             const marker = L.marker([lat, lng]).addTo(map);
-            markers.push(marker);
+            markers.push({ marker, id });
 
             marker.bindPopup(`
                 <b>Problema informado:</b><br>
                 ${descricao}<br><br>
                 <b>Coordenadas:</b><br>
                 ${lat.toFixed(4)}, ${lng.toFixed(4)}<br><br>
-                <button onclick="removeMarker(${index})">Remover ponto</button>
+                <button onclick="removeMarker(${id})">Remover ponto</button>
                 <button onclick="reportIssue('${encodeURIComponent(descricao)}', ${lat}, ${lng})">Denunciar</button>
             `);
         });
     })
-    .catch(error => {
-        console.error('Erro ao carregar pontos:', error);
-        alert('Erro ao carregar pontos: ' + error.message);
-    });
+    .catch(error => console.error('Erro ao carregar pontos:', error));
 
 
-// 🔹 Função 2: Adicionar marcador ao clicar no mapa
+
+
 map.on('click', function (e) {
-    if (!addingMarkers) return; // só adiciona se o modo estiver ativo
+    if (!addingMarkers) return; 
 
     const { lat, lng } = e.latlng;
     const descricao = prompt("Descreva o problema de acessibilidade neste local:");
 
     if (!descricao) return;
 
-    // Envia os dados para o PHP (salvar no banco)
+    
     fetch('../php/salvar_ponto.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `descricao=${encodeURIComponent(descricao)}&lat=${lat}&lng=${lng}`
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'sucesso') {
-                // Adiciona o marcador visualmente no mapa
-                const marker = L.marker([lat, lng]).addTo(map);
-                markers.push(marker);
-
-                marker.bindPopup(`
-                    <b>Problema informado:</b><br>
-                    ${descricao}<br><br>
-                    <b>Coordenadas:</b><br>
-                    ${lat.toFixed(4)}, ${lng.toFixed(4)}<br><br>
-                    <button onclick="removeMarker(${markers.length - 1})">Remover ponto</button>
-                    <button onclick="reportIssue('${encodeURIComponent(descricao)}', ${lat}, ${lng})">Denunciar</button>
-                `);
-
-                alert('Ponto salvo com sucesso!');
-            } else {
-                alert('Erro ao salvar ponto no banco.');
-                console.error(data.mensagem);
-            }
-        })
-        .catch(error => {
-            alert('Erro ao conectar com o servidor.');
-            console.error(error);
-        });
+    .then(response => response.json()) // <-- precisa disso
+    .then(data => {
+        if (data.status === 'sucesso') {
+            const id = data.id;  
+    
+            const marker = L.marker([lat, lng]).addTo(map);
+            markers.push({ marker, id });
+    
+            marker.bindPopup(`
+                <b>Problema informado:</b><br>
+                ${descricao}<br><br>
+                <b>Coordenadas:</b><br>
+                ${lat.toFixed(4)}, ${lng.toFixed(4)}<br><br>
+                <button onclick="removeMarker(${id})">Remover ponto</button>
+                <button onclick="reportIssue('${encodeURIComponent(descricao)}', ${lat}, ${lng})">Denunciar</button>
+            `);
+            alert('Ponto salvo com sucesso!');
+        } else {
+            alert('Erro ao salvar ponto no banco de dados.');
+            console.error(data.mensagem);
+        }
+    })
+    .catch(error => {
+        alert('Erro ao conectar com o servidor.');
+        console.error(error);
+    });
+    
 });
 
-// 🔹 Função 3: Remover marcador com confirmação
+
 window.removeMarker = function (index) {
     const confirmDelete = confirm("Tem certeza que deseja excluir o ponto?");
     if (confirmDelete && markers[index]) {
@@ -114,8 +108,43 @@ window.removeMarker = function (index) {
     }
 };
 
-// 🔹 Função 4: Ir para página de denúncia
+
 window.reportIssue = function (descricao, lat, lng) {
     const url = `index3.html?descricao=${descricao}&lat=${lat}&lng=${lng}`;
     window.location.href = url;
 };
+
+window.removeMarker = function (id) {
+    const confirmDelete = confirm("Tem certeza que deseja excluir o ponto?");
+    if (!confirmDelete) return;
+
+    
+    fetch('../php/remover_ponto.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'sucesso') {
+           
+            const markerData = markers.find(m => m.id === id);
+            if (markerData) {
+                map.removeLayer(markerData.marker);
+                markers = markers.filter(m => m.id !== id);
+            }
+            alert('Ponto removido com sucesso!');
+        } else {
+            alert('Erro ao remover ponto do banco.');
+            console.error(data.mensagem);
+        }
+    })
+    .catch(error => {
+        alert('Erro de conexão com o servidor.');
+        console.error(error);
+    });
+};
+
+
+
+

@@ -1,20 +1,27 @@
 <?php
+header('Content-Type: application/json');
 include('config.php');
 
-// Pega dados do POST
-$data = json_decode(file_get_contents("php://input"), true);
-$descricao = $data["descricao"];
-$latitude = $data["latitude"];
-$longitude = $data["longitude"];
 
-// Insere no banco
+$descricao = $_POST['descricao'] ?? '';
+$latitude = $_POST['lat'] ?? '';
+$longitude = $_POST['lng'] ?? '';
+
+
+if (empty($descricao) || empty($latitude) || empty($longitude)) {
+    echo json_encode(['status' => 'erro', 'mensagem' => 'Dados incompletos.']);
+    exit;
+}
+
+
 $sql = "INSERT INTO pontos (descricao, latitude, longitude) VALUES (?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sdd", $descricao, $latitude, $longitude);
 
 if ($stmt->execute()) {
-    echo json_encode(["status" => "ok"]);
+    echo json_encode(['status' => 'sucesso', 'id' => $conn->insert_id]);
 } else {
-    echo json_encode(["status" => "erro", "mensagem" => $stmt->error]);
+    echo json_encode(['status' => 'erro', 'mensagem' => $stmt->error]);
 }
+
 ?>
