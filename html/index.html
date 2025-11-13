@@ -4,65 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IncluiPOA</title>
-    <link rel="shortcut icon" type="imagex/png" href="../img/logo-incluiPoa.png">
-    <link 
-        rel="stylesheet" 
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"   
-    >
-    
-    <link rel="stylesheet" href="../css/style.css">
 
+    <link rel="shortcut icon" type="imagex/png" href="../img/logo-incluiPoa.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 
 <body>
-        <header id="max">
-            <link rel="stylesheet" href="../css/header.css">
-    
-    <div class="Logo">
-        <img src="" alt="">
-        <nav>
-            <ul>
-                <li>
-                    <a href="">
-                        Homepage
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        Sobre nós
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        Objetivo
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        Contato
-                    </a>
-                </li>
-            </ul>
+    <header class="max">
+        <div class="container">
+            <div class="Logo">
+                <img src="../img/logo-incluiPoa.png" alt="Logo IncluiPOA">
+            </div>
 
-        </nav>
-    </div>
+            <nav>
+                <ul>
+                    <li><a href="index2.html">Histórico</a></li>
+                    <li><a href="index1.html">Menu</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
+
     <div class="title">
-        <h1>MAPA</h1>
-        <h2>Marque locais que necessitam de maior acessibilidade.</h2>
+        
     </div>
 
-    
     <button id="toggleAddButton">Ativar modo de marcação</button>
-
     <button id="backButton" onclick="window.location.href='../html/index1.html'">Voltar ao menu</button>
 
     <div id="map"></div>
 
-   
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-
     <script src="../js/script.js"></script>
 </body>
 </html>

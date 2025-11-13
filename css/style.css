@@ -10,16 +10,15 @@ body {
     color: white;
     text-align: center;
     padding: 20px;
+    padding-top: 120px;
 }
 
-.title {
-    margin-bottom: 30px;
-}
+
 
 #map {
-    height: 400px;
+    height: 65vh;
     width: 100%;
-    max-width: 600px;
+    max-width: 850px;
     margin: 0 auto;
     border-radius: 10px;
     border: 2px solid #ddd;

@@ -1,74 +1,77 @@
-*{
-
-margin: 0%;
-padding: 0%;
-box-sizing: border-box;
-list-style: none;
-text-decoration: none;
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-scroll-behavior: smooth;
-
-}
-
-body{
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  header {
+    width: 100%;
+    height: 100px;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-}
-
-/** começando a fazer **/
-
-header {
-
-width: 100%;
-height: 100px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-background-color: black;
-padding: 0 20px;
-position: fixed;
-top: 0;
-
-}
-
-.max{
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    overflow: hidden; 
+  }
+  
+  header .container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .Logo img {
+    height: 70%; 
+  width: 100px;
+  object-fit: contain; 
+  display: block;
+  }
+  
+  nav ul {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: white;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  nav ul li a:active {
+    background-color: #333;
+    color: white;
+    transform: scale(0.95);
+  }
+  
+  .max {
     height: 100px;
-    background-color: black;
-
-}
-
-.min{
-
+  }
+  
+  .min {
     height: 80px;
-    background-color: black;
-
-
-}
-
-ul li{
-
-display: inline-block;
-margin: auto 10px;
-
-
-}
-
-ul li a{
-
-color: white;
-
-}
-
-.Logo img{
-
-    width: 200px;
-
-}
-
-
-
+  }
+  
