@@ -3,24 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - IncluiPOA</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style5.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
 
-<h1>Login</h1>
+    <header class="max">
+        <div class="container">
+            <div class="Logo">
+                <img src="../img/logo-incluiPoa.png" alt="Logo IncluiPOA">
+            </div>
 
-<form action="../php/login.php" method="POST">
-    <label>Usuário ou Email:</label><br>
-    <input type="text" name="login" required><br><br>
+            <nav>
+                <ul>
+                    <li><a href="index2.html">Histórico</a></li>
+                    <li><a href="index1.html">Menu</a></li>
+                    <li><a href="index4.html">Registrar</a></li>
+                    <li><a href="index5.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <label>Senha:</label><br>
-    <input type="password" name="senha" required><br><br>
+    <div class="container-reg">
+        <h2>Login</h2>
 
-    <button type="submit">Entrar</button>
-</form>
+        <form action="login.php" method="POST">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="password" name="password" placeholder="Senha" required>
 
-<br>
-<a href="index4.html">Criar nova conta</a>
+            <button type="submit">logar</button>
+        </form>
 
+        <p class="small-text">
+            criar nova conta? <a href="index4.html">Entrar</a>
+        </p>
+    </div>
 </body>
+
 </html>

@@ -3,27 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar - IncluiPOA</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style4.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
+    <header class="max">
+        <div class="container">
+            <div class="Logo">
+                <img src="../img/logo-incluiPoa.png" alt="Logo IncluiPOA">
+            </div>
 
-<h1>Registrar novo usuário</h1>
+            <nav>
+                <ul>
+                    <li><a href="index2.html">Histórico</a></li>
+                    <li><a href="index1.html">Menu</a></li>
+                    <li><a href="index4.html">Registrar</a></li>
+                    <li><a href="index5.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container-reg">
+        <h2>Registrar</h2>
+        
 
-<form action="../php/register.php" method="POST">
-    <label>Username:</label><br>
-    <input type="text" name="username" required><br><br>
+        <form action="register.php" method="POST">
+            <input type="text" name="username" placeholder="Usuário" required>
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="password" name="password" placeholder="Senha" required>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br><br>
+            <button type="submit">Criar Conta</button>
+        </form>
 
-    <label>Senha:</label><br>
-    <input type="password" name="senha" required><br><br>
-
-    <button type="submit">Registrar</button>
-</form>
-
-<br>
-<a href="index5.html">Já possui conta? Fazer login</a>
-
+        <p class="small-text">
+            Já possui conta? <a href="index5.html">Entrar</a>
+        </p>
+    </div>
 </body>
+
 </html>
