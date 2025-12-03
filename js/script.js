@@ -44,6 +44,7 @@ fetch('../php/listar_pontos.php', {
             markers.push({ marker, id });
 
             marker.bindPopup(`
+                <b>Informado por:</b> ${ponto.username}<br><br>
                 <b>Problema informado:</b><br>
                 ${descricao}<br><br>
                 <b>Coordenadas:</b><br>

@@ -10,7 +10,11 @@ if (!isset($_SESSION['id'])) {
 
 $usuario_id = $_SESSION['id'];
 
-$sql = "SELECT * FROM pontos WHERE usuario_id = ?";
+$sql = "SELECT p.id, p.latitude, p.longitude, p.descricao, u.username
+        FROM pontos p
+        JOIN usuarios u ON u.id = p.usuario_id
+        WHERE p.usuario_id = ?";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();

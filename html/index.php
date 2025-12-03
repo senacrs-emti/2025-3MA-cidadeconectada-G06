@@ -32,7 +32,7 @@ session_start();
         <li><a href="index2.php">Histórico</a></li>
         <li><a href="index1.php">Menu</a></li>
 
-        <?php if (isset($_SESSION['user_id'])): ?>
+        <?php if (isset($_SESSION['id'])): ?>
             <li><span style="color: white; font-weight: bold;">
                 Olá, <?= htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?>
             </span></li>
