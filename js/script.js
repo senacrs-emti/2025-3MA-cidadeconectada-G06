@@ -145,6 +145,11 @@ window.removeMarker = function (id) {
     });
 };
 
+const btn = document.getElementById('toggleAddButton');
+
+// Impede que o Leaflet capture cliques no botão
+L.DomEvent.disableClickPropagation(toggleAddButton);
+
 
 
 
