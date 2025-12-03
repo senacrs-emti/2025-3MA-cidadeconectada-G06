@@ -29,7 +29,9 @@ if (toggleAddButton) {
 let markers = [];
 
 
-fetch('../php/listar_pontos.php')
+fetch('../php/listar_pontos.php', {
+    credentials: 'include'
+})
     .then(response => response.json())
     .then(data => {
         data.forEach(ponto => {
@@ -66,10 +68,12 @@ map.on('click', function (e) {
 
     
     fetch('../php/salvar_ponto.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `descricao=${encodeURIComponent(descricao)}&lat=${lat}&lng=${lng}`
-    })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `descricao=${encodeURIComponent(descricao)}&lat=${lat}&lng=${lng}`,
+    credentials: 'include'
+})
+
     .then(response => response.json()) // <-- precisa disso
     .then(data => {
         if (data.status === 'sucesso') {
@@ -110,7 +114,7 @@ window.removeMarker = function (index) {
 
 
 window.reportIssue = function (descricao, lat, lng) {
-    const url = `index3.html?descricao=${descricao}&lat=${lat}&lng=${lng}`;
+    const url = `index3.php?descricao=${descricao}&lat=${lat}&lng=${lng}`;
     window.location.href = url;
 };
 
@@ -120,10 +124,12 @@ window.removeMarker = function (id) {
 
     
     fetch('../php/remover_ponto.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${id}`
-    })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `id=${id}`,
+    credentials: 'include'
+})
+
     .then(response => response.json())
     .then(data => {
         if (data.status === 'sucesso') {

@@ -19,7 +19,7 @@
             Participe marcando pontos no mapa e descrevendo os desafios enfrentados por pessoas com deficiência ou mobilidade reduzida.
         </p>
 
-        <button id="startButton" onclick="window.location.href='index.html'">
+        <button id="startButton" onclick="window.location.href='index.php'">
             Entrar no mapa 🗺️
         </button>
 

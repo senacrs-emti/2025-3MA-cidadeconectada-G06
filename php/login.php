@@ -1,4 +1,6 @@
 <?php
+session_start(); // <-- ADICIONE ISSO NO TOPO
+
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -9,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $email = $_POST['email'];
     $senhaDigitada = $_POST['senha'];
+    $username = $_POST["username"] ?? null;
 
     $sql = "SELECT * FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
@@ -21,7 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $usuario = $result->fetch_assoc();
 
         if (password_verify($senhaDigitada, $usuario["senha"])) {
-            echo "Login realizado com sucesso!";
+
+    $_SESSION['user_id'] = $usuario['id'];
+    $_SESSION['username'] = $usuario['username'];
+    $_SESSION['user_email'] = $usuario['email'];
+
+    header("Location: ../html/index.php");
+    exit();
+
+
+
         } else {
             echo "Senha incorreta!";
         }

@@ -21,7 +21,7 @@
             <textarea id="motivo" name="motivo" rows="5" required placeholder="Descreva o motivo da denúncia..."></textarea><br>
 
             <button type="submit">Enviar denúncia</button>
-            <button type="button" onclick="window.location.href='index.html'">Voltar ao mapa</button>
+            <button type="button" onclick="window.location.href='index.php'">Voltar ao mapa</button>
         </form>
     </div>
 
@@ -41,7 +41,7 @@
             e.preventDefault();
             const motivo = document.getElementById("motivo").value;
             alert(`Denúncia enviada!\n\nMotivo: ${motivo}`);
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         });
     </script>
 </body>

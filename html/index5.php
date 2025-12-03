@@ -16,10 +16,10 @@
 
             <nav>
                 <ul>
-                    <li><a href="index2.html">Histórico</a></li>
-                    <li><a href="index1.html">Menu</a></li>
-                    <li><a href="index4.html">Registrar</a></li>
-                    <li><a href="index5.html">Login</a></li>
+                    <li><a href="index2.php">Histórico</a></li>
+                    <li><a href="index1.php">Menu</a></li>
+                    <li><a href="index4.php">Registrar</a></li>
+                    <li><a href="index5.php">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,7 +38,7 @@
         
 
         <p class="small-text">
-            criar nova conta? <a href="index4.html">Registrar</a>
+            criar nova conta? <a href="index4.php">Registrar</a>
         </p>
     </div>
 </body>

@@ -12,7 +12,7 @@
     <div id="history-container">
         <h1>Seu histórico de marcações</h1>
         
-        <button id="backButton" onclick="window.location.href='../html/index1.html'">
+        <button id="backButton" onclick="window.location.href='../html/index1.php'">
             Voltar ao menu
         </button>
 

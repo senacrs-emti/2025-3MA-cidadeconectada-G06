@@ -13,6 +13,14 @@
 </head>
 
 <body>
+    
+     <?php
+session_start();
+
+?>
+
+
+
     <header class="max">
         <div class="container">
             <div class="Logo">
@@ -20,14 +28,23 @@
             </div>
 
             <nav>
-                <ul>
-                    <li><a href="index2.html">Histórico</a></li>
-                    <li><a href="index1.html">Menu</a></li>
-                    <li><a href="index4.html">Registrar</a></li>
-                    <li><a href="index5.html">Login</a></li>
-                </ul>
-                </div>
-            </nav>
+    <ul>
+        <li><a href="index2.php">Histórico</a></li>
+        <li><a href="index1.php">Menu</a></li>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <li><span style="color: white; font-weight: bold;">
+                Olá, <?= htmlspecialchars($_SESSION['username'] ?? 'Usuário'); ?>
+            </span></li>
+            <li><a href="../php/logout.php">Sair</a></li>
+
+        <?php else: ?>
+            <li><a href="index4.php">Registrar</a></li>
+            <li><a href="index5.php">Login</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>
+
         </div>
     </header>
 

@@ -23,7 +23,7 @@ if (!$stmt) {
 $stmt->bind_param("sss", $username, $email, $senhaHash);
 
 if ($stmt->execute()) {
-    header("Location: ../html/index5.html");
+    header("Location: ../html/index5.php");
     exit;
 } else {
     die("Erro ao registrar: " . $stmt->error);

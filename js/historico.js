@@ -33,7 +33,7 @@ fetch('../php/listar_historico.php')
 
 
 function abrirMapa(lat, lng) {
-    window.location.href = `./index.html?lat=${lat}&lng=${lng}`;
+    window.location.href = `./index.php?lat=${lat}&lng=${lng}`;
 }
 
 
