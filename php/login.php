@@ -2,10 +2,9 @@
 session_start();
 include("config.php");
 
-$login = $_POST['login'];  // email ou username
-$senha = $_POST['senha'];  // senha digitada
+$login = $_POST['login'];
+$senha = $_POST['password'];
 
-// Buscar por username OU email
 $stmt = $conn->prepare("SELECT id, senha FROM usuarios WHERE username = ? OR email = ?");
 $stmt->bind_param("ss", $login, $login);
 $stmt->execute();
@@ -17,7 +16,8 @@ if ($stmt->num_rows > 0) {
 
     if (password_verify($senha, $senhaHash)) {
         $_SESSION['usuario_id'] = $id;
-        header("Location: ../html/index1.html");
+
+        header("Location: ../html/index1.html"); // página inicial logado
         exit;
     } else {
         echo "Senha incorreta!";
@@ -25,3 +25,4 @@ if ($stmt->num_rows > 0) {
 } else {
     echo "Usuário não encontrado!";
 }
+?>
