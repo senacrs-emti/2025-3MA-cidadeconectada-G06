@@ -1,26 +1,30 @@
 <?php
-include "config.php";
+include("config.php");
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $username = $_POST['username'] ?? null;
-    $email = $_POST['email'] ?? null;
-    $password = $_POST['password'] ?? null;
 
-    if (!$username || !$email || !$password) {
-        die("Erro: Todos os campos são obrigatórios.");
-    }
+$username = $_POST["username"] ?? null;
+$email = $_POST["email"] ?? null;
+$password = $_POST["senha"] ?? null;
 
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO usuarios (username, email, password) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $username, $email, $password_hash);
-
-    if ($stmt->execute()) {
-        echo "Usuário registrado com sucesso!";
-    } else {
-        echo "Erro ao registrar usuário: " . $stmt->error;
-    }
+if (!$username || !$email || !$password) {
+    die("Erro: todos os campos são obrigatórios.");
 }
-?>
+
+$senhaHash = password_hash($password, PASSWORD_DEFAULT);
+
+$sql = "INSERT INTO usuarios (username, email, senha) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    die("Erro no prepare: " . $conn->error);
+}
+
+$stmt->bind_param("sss", $username, $email, $senhaHash);
+
+if ($stmt->execute()) {
+    header("Location: ../html/index5.html");
+    exit;
+} else {
+    die("Erro ao registrar: " . $stmt->error);
+}
