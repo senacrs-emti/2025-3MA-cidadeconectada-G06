@@ -3,9 +3,8 @@ session_start();
 include("config.php");
 
 $login = $_POST['login'];
-$senha = $_POST['senha'];
+$senha = $_POST['password'];
 
-// Pode logar usando username **ou** email
 $stmt = $conn->prepare("SELECT id, senha FROM usuarios WHERE username = ? OR email = ?");
 $stmt->bind_param("ss", $login, $login);
 $stmt->execute();
@@ -18,7 +17,7 @@ if ($stmt->num_rows > 0) {
     if (password_verify($senha, $senhaHash)) {
         $_SESSION['usuario_id'] = $id;
 
-        header("Location: ../html/index.html");
+        header("Location: ../html/index1.html"); // página inicial logado
         exit;
     } else {
         echo "Senha incorreta!";
