@@ -31,6 +31,8 @@ session_start();
     <ul>
         <li><a href="index2.php">Histórico</a></li>
         <li><a href="index1.php">Menu</a></li>
+        <li><a href="../html/Info/aboutus.html">Sobre nós</a></li>
+
 
         <?php if (isset($_SESSION['id'])): ?>
             <li><span style="color: white; font-weight: bold;">
